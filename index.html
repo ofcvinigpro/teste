@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casa dos Relógios — Luxo & Elegância</title>
+  <meta name="description" content="Loja frontend de relógios de luxo — escolha, adicione ao carrinho e compre via WhatsApp." />
+  <!-- Ícone simples -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⌚</text></svg>">
+
+  <!-- Link para o CSS externo (vou enviar o CSS separadamente) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Fonte local/remote (fallback sem especificar import no CSS) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Meta tags de social (básicas) -->
+  <meta property="og:title" content="Casa dos Relógios — Luxo & Elegância">
+  <meta property="og:description" content="Selecione seus relógios de luxo e compre com facilidade via WhatsApp.">
+  <meta property="og:type" content="website">
+
+  <!-- Small inline script para ajudar com deteção de touch (melhora UX) -->
+  <script>
+    (function(){
+      try { document.documentElement.classList.add(('ontouchstart' in window) ? 'has-touch' : 'no-touch'); } catch(e){}
+    })();
+  </script>
+
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Casa dos Relógios"> 
+        <span class="brand-mark">⌚</span>
+        <span class="brand-name">Casa dos Relógios</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#colecao">Coleção</a></li>
+          <li><a href="#novidades">Novidades</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="searchToggle" class="icon-btn" aria-label="Pesquisar">🔍</button>
+        <button id="cartToggle" class="icon-btn" aria-label="Abrir carrinho">🧾 <span id="cartCount" class="badge">0</span></button>
+      </div>
+    </div>
+
+    <!-- Barra de destaque promocional -->
+    <div class="promo-bar" role="region" aria-label="Promoções">
+      Frete grátis para compras acima de R$20.000 — Garantia e certificado de autenticidade.
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="main" role="main">
+
+    <!-- Hero / destaque -->
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <h1 id="hero-title">Relógios de Luxo — Seleção Curada</h1>
+        <p class="lead">Modelos exclusivos, atendimento premium. Escolha seu relógio e finalize a compra via WhatsApp em um clique.</p>
+
+        <div class="hero-actions">
+          <a href="#colecao" class="btn btn-primary">Ver Coleção</a>
+          <button id="openWhatsAppIntro" class="btn btn-ghost">Como comprar via WhatsApp</button>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <!-- Ilustração estética feita em CSS/Imagem real poderia ser aqui -->
+        <div class="watch-hero"> 
+          <div class="watch-plate">⌚</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Coleção de produtos -->
+    <section id="colecao" class="collection container" aria-labelledby="colecao-title">
+      <header class="section-header">
+        <h2 id="colecao-title">Coleção Premium</h2>
+        <p>Modelos selecionados por mestres relojoeiros. Filtre por marca, material ou preço.</p>
+      </header>
+
+      <!-- Filtros simples -->
+      <div class="filters" role="region" aria-label="Filtros da coleção">
+        <label class="filter">
+          <span>Marca</span>
+          <select id="filterBrand">
+            <option value="all">Todas</option>
+            <option value="rolex">Rolex</option>
+            <option value="omega">Omega</option>
+            <option value="patek">Patek Philippe</option>
+            <option value="audemars">Audemars Piguet</option>
+          </select>
+        </label>
+
+        <label class="filter">
+          <span>Material</span>
+          <select id="filterMaterial">
+            <option value="all">Todos</option>
+            <option value="ouro">Ouro</option>
+            <option value="aço">Aço</option>
+            <option value="titânio">Titânio</option>
+            <option value="ceramica">Cerâmica</option>
+          </select>
+        </label>
+
+        <label class="filter range">
+          <span>Preço (até)</span>
+          <input type="range" id="filterPrice" min="0" max="100000" step="1000" value="100000">
+          <output id="filterPriceValue">R$100.000</output>
+        </label>
+      </div>
+
+      <!-- Grid de produtos -->
+      <div id="productsGrid" class="products-grid" role="list">
+
+        <!-- Cada produto como template (vários itens estão repetidos para exemplificar) -->
+
+        <!-- Produto 1 -->
+        <article class="product-card" role="listitem" data-brand="rolex" data-material="ouro" data-price="75000">
+          <div class="product-media">
+            <img src="foto/rv.webp" alt="Rolex Oyster Perpetual Ouro" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Rolex Oyster Perpetual</h3>
+            <p class="product-meta">Ouro 18k • Automático</p>
+            <p class="product-price">R$ 75.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 2 -->
+        <article class="product-card" role="listitem" data-brand="omega" data-material="aço" data-price="32000">
+          <div class="product-media">
+            <img src="foto/4_Life_Rolex.webp" alt="Omega Seamaster Aço" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Omega Seamaster</h3>
+            <p class="product-meta">Aço Inoxidável • Automático</p>
+            <p class="product-price">R$ 32.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 3 -->
+        <article class="product-card" role="listitem" data-brand="patek" data-material="ouro" data-price="190000">
+          <div class="product-media">
+            <img src="foto/relogio1.webp" alt="Patek Philippe Ouro" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Patek Philippe Grand Complication</h3>
+            <p class="product-meta">Ouro Rosa • Complicações</p>
+            <p class="product-price">R$ 190.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 4 -->
+        <article class="product-card" role="listitem" data-brand="audemars" data-material="titânio" data-price="120000">
+          <div class="product-media">
+            <img src="foto/rolex-relogios-luxo-investimento-valorizacao-diversificacao-alternativo-boston-consulting-group-bcg-ibovespa.jpg" alt="Audemars Piguet Titânio" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Audemars Piguet Royal Oak</h3>
+            <p class="product-meta">Titânio • Edição Limitada</p>
+            <p class="product-price">R$ 120.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 5 -->
+        <article class="product-card" role="listitem" data-brand="rolex" data-material="aço" data-price="48000">
+          <div class="product-media">
+            <img src="foto/relogio2.jpeg" alt="Rolex Submariner Aço" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Rolex Submariner</h3>
+            <p class="product-meta">Aço • Automático</p>
+            <p class="product-price">R$ 48.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produtos extras para aumentar volume de código e variedade -->
+        <!-- Produto 6 -->
+        <article class="product-card" role="listitem" data-brand="omega" data-material="ceramica" data-price="42000">
+          <div class="product-media">
+            <img src="foto/rolex_gmt_master_ii_batman_97_1_55bd2a43c2b06516f55eac634024fef6.webp" alt="Omega Cerâmica" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Omega Speedmaster Ceramic</h3>
+            <p class="product-meta">Cerâmica • Cronógrafo</p>
+            <p class="product-price">R$ 42.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 7 -->
+        <article class="product-card" role="listitem" data-brand="patek" data-material="ouro" data-price="350000">
+          <div class="product-media">
+            <img src="foto/relogio1.webp" alt="Patek Edição Preciosa" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Patek Philippe Precious</h3>
+            <p class="product-meta">Ouro Branco • Complicações</p>
+            <p class="product-price">R$ 350.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Produto 8 -->
+        <article class="product-card" role="listitem" data-brand="audemars" data-material="aço" data-price="98000">
+          <div class="product-media">
+            <img src="foto/relogio2.jpeg"alt="Audemars Em Aço" loading="lazy">
+            <button class="fav-btn" aria-label="Adicionar aos favoritos">♡</button>
+          </div>
+          <div class="product-body">
+            <h3 class="product-title">Audemars Piguet Steel</h3>
+            <p class="product-meta">Aço Inoxidável • Design icônico</p>
+            <p class="product-price">R$ 98.000</p>
+            <div class="product-actions">
+              <label class="qty">
+                Qtde
+                <input type="number" min="1" value="1" class="qty-input">
+              </label>
+              <button class="btn btn-outline add-to-cart">Adicionar</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fim do grid de produtos (mas você pode adicionar mais itens aqui) -->
+      </div>
+
+      <!-- Rodapé da seção com paginação simples -->
+      <div class="collection-footer">
+        <button class="btn btn-ghost">Mostrar mais</button>
+      </div>
+    </section>
+
+    <!-- SECTION: Carrinho (offcanvas modal) -->
+    <aside id="cartDrawer" class="drawer" aria-hidden="true" aria-labelledby="cartTitle" role="dialog">
+      <div class="drawer-panel">
+        <header class="drawer-header">
+          <h3 id="cartTitle">Seu Carrinho</h3>
+          <button id="closeCart" class="icon-btn" aria-label="Fechar carrinho">✕</button>
+        </header>
+
+        <div id="cartItems" class="drawer-body">
+          <p class="empty">Seu carrinho está vazio. Adicione alguns relógios incríveis!</p>
+        </div>
+
+        <footer class="drawer-footer">
+          <div class="totals">
+            <div>Subtotal: <strong id="cartSubtotal">R$ 0</strong></div>
+            <div>Itens: <strong id="cartTotalItems">0</strong></div>
+          </div>
+
+          <div class="drawer-actions">
+            <button id="clearCart" class="btn btn-ghost">Limpar</button>
+            <button id="checkoutWhatsApp" class="btn btn-primary" aria-label="Comprar via WhatsApp">Comprar via WhatsApp</button>
+          </div>
+        </footer>
+      </div>
+    </aside>
+
+    <!-- SECTION: Sobre e garantia -->
+    <section id="sobre" class="about container" aria-labelledby="sobre-title">
+      <h2 id="sobre-title">Sobre Nós</h2>
+      <p>Na Casa dos Relógios oferecemos atendimento personalizado, certificação e garantia de autenticidade. Nosso processo de compra via WhatsApp é seguro e direto — nós disponibilizamos fotos reais e nota fiscal.</p>
+
+      <div class="guarantees">
+        <div class="g-item">Certificado de Autenticidade</div>
+        <div class="g-item">Garantia Oficial</div>
+        <div class="g-item">Envio Seguro</div>
+      </div>
+
+    </section>
+
+    <!-- Footer simplificado -->
+    <footer class="site-footer container" role="contentinfo">
+      <div class="footer-grid">
+        <div class="foot-col">
+          <strong>Casa dos Relógios</strong>
+          <address>
+            Rua Exemplo, 123<br>
+            São Paulo, SP<br>
+          </address>
+        </div>
+        <div class="foot-col">
+          <strong>Contato</strong>
+          <p>WhatsApp: <a href="https://wa.me/5511999999999" id="contactWhats">(11) 99999-9999</a></p>
+        </div>
+        <div class="foot-col">
+          <strong>Horário</strong>
+          <p>Seg — Sex: 10:00 — 18:00</p>
+        </div>
+      </div>
+
+      <div class="copyright">© <span id="year">2025</span> Casa dos Relógios — Todos os direitos reservados.</div>
+    </footer>
+
+  </main>
+
+  <!-- Templates ocultos (para clonar dinamicamente) -->
+  <template id="cartItemTemplate">
+    <div class="cart-item">
+      <img src="" alt="" class="cart-thumb">
+      <div class="cart-meta">
+        <div class="cart-title"></div>
+        <div class="cart-qty">Qtd: <span class="cart-qty-val">1</span></div>
+        <div class="cart-price">R$ <span class="cart-price-val">0</span></div>
+      </div>
+      <div class="cart-actions">
+        <button class="small-btn increase">+</button>
+        <button class="small-btn decrease">−</button>
+        <button class="small-btn remove">Remover</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- Accessibility: Skip link -->
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  <!-- SCRIPT: Lógica do frontend (JavaScript puro) -->
+  <script>
+    /*
+      Código JS responsável por:
+      - Filtrar produtos
+      - Adicionar/Remover do carrinho
+      - Exportar resumo para WhatsApp (mensagem formatada)
+      - Atualizar UI (contadores, subtotal)
+    */
+
+    (function(){
+      // Utilitários
+      function formatCurrencyBR(value){
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+      }
+
+      function qs(sel, ctx){ return (ctx||document).querySelector(sel); }
+      function qsa(sel, ctx){ return Array.from((ctx||document).querySelectorAll(sel)); }
+
+      // Estado do carrinho
+      const cart = {
+        items: [] // {id, title, qty, price, img}
+      };
+
+      // Elementos principais
+      const productsGrid = qs('#productsGrid');
+      const cartToggle = qs('#cartToggle');
+      const cartDrawer = qs('#cartDrawer');
+      const cartItemsEl = qs('#cartItems');
+      const cartCount = qs('#cartCount');
+      const cartSubtotalEl = qs('#cartSubtotal');
+      const cartTotalItemsEl = qs('#cartTotalItems');
+      const checkoutWhatsApp = qs('#checkoutWhatsApp');
+      const clearCartBtn = qs('#clearCart');
+      const filterBrand = qs('#filterBrand');
+      const filterMaterial = qs('#filterMaterial');
+      const filterPrice = qs('#filterPrice');
+      const filterPriceValue = qs('#filterPriceValue');
+
+      // Detecte e atualize o ano no rodapé
+      qs('#year').textContent = new Date().getFullYear();
+
+      // Inicialização simples
+      function init(){
+        // Attach listeners para botões adicionar
+        qsa('.add-to-cart').forEach(btn => btn.addEventListener('click', onAddToCart));
+
+        cartToggle.addEventListener('click', toggleCart);
+        qs('#closeCart').addEventListener('click', toggleCart);
+        clearCartBtn.addEventListener('click', clearCart);
+        checkoutWhatsApp.addEventListener('click', checkoutViaWhatsApp);
+
+        filterBrand.addEventListener('change', applyFilters);
+        filterMaterial.addEventListener('change', applyFilters);
+        filterPrice.addEventListener('input', onPriceRangeChange);
+
+        // Inicializar estado do range
+        onPriceRangeChange();
+
+        // Favoritos (apenas visual)
+        qsa('.fav-btn').forEach(btn => btn.addEventListener('click', e=>{
+          btn.classList.toggle('is-fav');
+        }));
+
+        // Accessibility: tecla ESC fecha drawer
+        document.addEventListener('keydown', (e)=>{
+          if(e.key === 'Escape' && cartDrawer.getAttribute('aria-hidden') === 'false') toggleCart();
+        });
+      }
+
+      function onPriceRangeChange(){
+        const val = Number(filterPrice.value);
+        filterPriceValue.value = formatCurrencyBR(val);
+        filterPriceValue.textContent = formatCurrencyBR(val);
+        applyFilters();
+      }
+
+      function applyFilters(){
+        const brand = filterBrand.value;
+        const material = filterMaterial.value;
+        const maxPrice = Number(filterPrice.value);
+
+        qsa('.product-card').forEach(card => {
+          const pBrand = card.dataset.brand || 'all';
+          const pMaterial = card.dataset.material || 'all';
+          const pPrice = Number(card.dataset.price) || 0;
+
+          const pass = (brand === 'all' || brand === pBrand) &&
+                       (material === 'all' || material === pMaterial) &&
+                       (pPrice <= maxPrice);
+
+          card.style.display = pass ? '' : 'none';
+        });
+      }
+
+      function onAddToCart(e){
+        const card = e.target.closest('.product-card');
+        const title = card.querySelector('.product-title').textContent.trim();
+        const priceText = card.querySelector('.product-price').textContent.replace(/[^0-9,\.]/g,'').replace('.', '').replace(',', '.');
+        const price = Number(priceText) || Number(card.dataset.price) || 0;
+        const qty = Number(card.querySelector('.qty-input').value) || 1;
+        const img = card.querySelector('img')?.getAttribute('src') || '';
+
+        // Id simples
+        const id = title.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+
+        // Verifica se já existe
+        const existing = cart.items.find(i=>i.id === id);
+        if(existing){ existing.qty += qty; }
+        else { cart.items.push({ id, title, qty, price, img }); }
+
+        updateCartUI();
+        openCart();
+      }
+
+      function updateCartUI(){
+        // Atualiza contador
+        const totalItems = cart.items.reduce((s,i)=>s+i.qty, 0);
+        cartCount.textContent = totalItems;
+        cartTotalItemsEl.textContent = totalItems;
+
+        // Atualiza subtotal
+        const subtotal = cart.items.reduce((s,i)=>s + (i.qty * i.price),0);
+        cartSubtotalEl.textContent = formatCurrencyBR(subtotal);
+
+        // Renderizar itens
+        renderCartItems();
+      }
+
+      function renderCartItems(){
+        cartItemsEl.innerHTML = '';
+        if(cart.items.length === 0){
+          cartItemsEl.innerHTML = '<p class="empty">Seu carrinho está vazio. Adicione alguns relógios incríveis!</p>';
+          return;
+        }
+
+        const tpl = qs('#cartItemTemplate');
+        cart.items.forEach(item => {
+          const node = tpl.content.cloneNode(true);
+          const container = node.querySelector('.cart-item');
+          container.querySelector('.cart-thumb').src = item.img || 'images/placeholder.png';
+          container.querySelector('.cart-thumb').alt = item.title;
+          container.querySelector('.cart-title').textContent = item.title;
+          container.querySelector('.cart-qty-val').textContent = item.qty;
+          container.querySelector('.cart-price-val').textContent = (item.price).toFixed(2);
+
+          // actions
+          container.querySelector('.increase').addEventListener('click', ()=>{
+            changeQty(item.id, item.qty + 1);
+          });
+          container.querySelector('.decrease').addEventListener('click', ()=>{
+            changeQty(item.id, item.qty - 1);
+          });
+          container.querySelector('.remove').addEventListener('click', ()=>{
+            removeItem(item.id);
+          });
+
+          cartItemsEl.appendChild(node);
+        });
+      }
+
+      function changeQty(id, qty){
+        const idx = cart.items.findIndex(i=>i.id===id);
+        if(idx === -1) return;
+        if(qty <= 0){ cart.items.splice(idx,1); }
+        else { cart.items[idx].qty = qty; }
+        updateCartUI();
+      }
+
+      function removeItem(id){
+        const idx = cart.items.findIndex(i=>i.id===id);
+        if(idx === -1) return;
+        cart.items.splice(idx,1);
+        updateCartUI();
+      }
+
+      function clearCart(){
+        cart.items = [];
+        updateCartUI();
+      }
+
+      function toggleCart(){
+        const hidden = cartDrawer.getAttribute('aria-hidden') === 'true';
+        if(hidden) openCart(); else closeCart();
+      }
+
+      function openCart(){
+        cartDrawer.setAttribute('aria-hidden','false');
+        cartDrawer.classList.add('open');
+      }
+      function closeCart(){
+        cartDrawer.setAttribute('aria-hidden','true');
+        cartDrawer.classList.remove('open');
+      }
+
+      // Monta mensagem para WhatsApp
+      function buildWhatsAppMessage(){
+        if(cart.items.length === 0) return null;
+        const lines = [];
+        lines.push('Olá! Gostaria de comprar os seguintes relógios:');
+        cart.items.forEach((it, idx)=>{
+          lines.push(`${idx+1}. ${it.title} — Qtd: ${it.qty} — Preço unitário: ${formatCurrencyBR(it.price)} — Subtotal: ${formatCurrencyBR(it.qty * it.price)}`);
+        });
+        const subtotal = cart.items.reduce((s,i)=>s + (i.qty * i.price),0);
+        lines.push('\nSubtotal: ' + formatCurrencyBR(subtotal));
+        lines.push('\nPor favor, me envie opções de pagamento e disponibilidade.');
+
+        return encodeURIComponent(lines.join('\n'));
+      }
+
+      function checkoutViaWhatsApp(){
+        const message = buildWhatsAppMessage();
+        if(!message){
+          alert('Seu carrinho está vazio. Adicione um relógio antes de finalizar.');
+          return;
+        }
+
+        const phone = '5511999999999'; // número da loja em formato internacional sem '+'
+        const url = `https://wa.me/${phone}?text=${message}`;
+
+        // abre em nova aba/janela
+        window.open(url, '_blank');
+      }
+
+      // Expose small helpers (para debug ou uso via console)
+      window.__Store = { cart, updateCartUI };
+
+      // Inicializa ao carregar
+      document.addEventListener('DOMContentLoaded', init);
+
+    })();
+  </script>
+
+  <!-- Pequeno fallback CSS inline para não quebrar totalmente caso o styles.css não exista -->
+  <style>
+    /* Fallback minimal para manter estrutura legível até o CSS completo ser adicionado */
+    :root{ --accent:#0b7b6b; --muted:#666; }
+    body{ font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; color:#111; }
+    .container{ max-width:1100px; margin:0 auto; padding:18px; }
+    .brand{ display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit; }
+    .brand-mark{ font-size:26px; }
+    .hero{ display:flex; gap:24px; align-items:center; padding:28px 0; }
+    .products-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:18px; }
+    .product-card{ border:1px solid #eee; padding:12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fafafa); }
+    .btn{ padding:8px 12px; border-radius:8px; cursor:pointer; }
+    .btn-primary{ background:var(--accent); color:#fff; border:none; }
+    .drawer{ position:fixed; right:0; top:0; bottom:0; width:360px; transform:translateX(110%); transition:transform .25s ease; background:#fff; box-shadow:-10px 0 30px rgba(0,0,0,.08); }
+    .drawer.open{ transform:translateX(0%); }
+    .skip-link{ position:absolute; left:-9999px; }
+  </style>
+
+</body>
+</html>
